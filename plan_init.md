@@ -12,7 +12,7 @@ Juego de adivinanzas diario inspirado en Wordle, en **español** e **inglés**, 
 > | 3 — UI de palabras | ✅ Tableros 5×6 y 6×7, animaciones, teclado, modales, modo oscuro, alto contraste, modo difícil |
 > | 4 — Juego de fecha | ✅ Implementado con flechas opcionales y 10 intentos (decisión del 2026-09-15) |
 > | 5 — i18n, menú, práctica | ✅ `/es` y `/en` con slugs traducidos y práctica en los tres juegos |
-> | 6 — Calidad y lanzamiento | ✅ 68 pruebas unitarias y 28 E2E (escritorio + móvil). ⏳ Falta medir Lighthouse y configurar Vercel (§11.1), que se hará en conjunto |
+> | 6 — Calidad y lanzamiento | ✅ 68 pruebas unitarias y 28 E2E (escritorio + móvil). ✅ Desplegado en https://wordkstate.vercel.app. ⏳ Falta medir Lighthouse |
 >
 > **Tamaños finales:** en/5: 1 621 soluciones y 11 088 intentos válidos · en/6: 1 860 / 19 631 · es/5: 1 231 / 9 124 · es/6: 1 487 / 21 622.
 >

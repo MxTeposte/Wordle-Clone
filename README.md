@@ -8,7 +8,9 @@ Juegos diarios de adivinanzas inspirados en Wordle, en **español** e **inglés*
 | Palabra de 6 | 6 letras | 7 | `/es/6`, `/en/6` |
 | Fecha oculta (1900 → hoy) | 8 dígitos | 10 | `/es/fecha` (DD/MM/AAAA), `/en/date` (MM/DD/YYYY) |
 
-Cada juego tiene reto diario y modo práctica (`/es/5/practica`, `/en/5/practice`…). El plan completo está en [plan_init.md](plan_init.md).
+**Juega en:** https://wordkstate.vercel.app/es (español) · https://wordkstate.vercel.app/en (English)
+
+Cada juego tiene reto diario y modo práctica (`/es/5/practica`, `/en/5/practice`…). El plan completo está en [plan_init.md](plan_init.md) y la especificación técnica en [tech_specs.md](tech_specs.md) ([English](tech_specs_en.md)).
 
 ## Requisitos
 
@@ -64,7 +66,6 @@ Ver la checklist del plan ([plan_init.md §11.1](plan_init.md)): importar el rep
 
 - **Nombre:** Aarón Teposte Cancio
 - **Correo:** [aaron.teposte@workstate.com](mailto:aaron.teposte@workstate.com)
-- **GitHub:** [@MxTeposte](https://github.com/MxTeposte)
 - **Construido con:** [Claude - Opus 5](https://www.anthropic.com/claude)
 
 ## Licencias

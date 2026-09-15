@@ -2,9 +2,13 @@
 
 Documento de referencia técnica del proyecto: tecnologías, arquitectura, rutas, APIs, lógica de juego, listas de palabras, persistencia de datos, pruebas y despliegue.
 
-- **Estado:** commit `c7daa6c` en la rama `main` (2026-09-15).
-- **Repositorio:** https://github.com/MxTeposte/Wordle-Clone
+- **Juego en producción:**
+  - Español: **https://wordkstate.vercel.app/es**
+  - Inglés: **https://wordkstate.vercel.app/en**
+  - `https://wordkstate.vercel.app/` redirige al idioma del navegador.
+- **Estado:** rama `main`, desplegada en Vercel (2026-09-15).
 - **Plan funcional:** [plan_init.md](plan_init.md) · **Guía de uso:** [README.md](README.md)
+- **English version:** [tech_specs_en.md](tech_specs_en.md)
 
 ## Autor
 
@@ -12,10 +16,9 @@ Documento de referencia técnica del proyecto: tecnologías, arquitectura, rutas
 |---|---|
 | **Nombre** | Aarón Teposte Cancio |
 | **Correo** | [aaron.teposte@workstate.com](mailto:aaron.teposte@workstate.com) |
-| **GitHub** | [@MxTeposte](https://github.com/MxTeposte) |
 | **Construido con** | [Claude - Opus 5](https://www.anthropic.com/claude) |
 
-En la aplicación se muestran el nombre, el correo y "Construido con Claude - Opus 5" en `/es/creditos` · `/en/credits` (sección "Autor"), y el nombre en el pie del menú. **El usuario de GitHub no se muestra en el juego** a petición del autor. Se definen en `src/lib/author.ts`.
+En la aplicación se muestran el nombre, el correo y "Construido con Claude - Opus 5" en `/es/creditos` · `/en/credits` (sección "Autor"), y el nombre en el pie del menú. Se definen en `src/lib/author.ts`.
 
 ---
 
@@ -787,11 +790,19 @@ type Stats = {
 - **Bajo demanda:** páginas de práctica y Route Handlers.
 - **Proxy:** solo sobre `/`.
 
-### 14.3 Despliegue en Vercel (pendiente de configurar; checklist en [plan_init.md §11.1](plan_init.md))
+### 14.3 Despliegue en Vercel (checklist en [plan_init.md §11.1](plan_init.md))
 
-- **Proyecto:** nombre `wordkstate`, dominio `wordkstate.vercel.app`.
-- **Build:** preset Next.js; `pnpm install` / `pnpm build`; Node 24 tomado de `engines`.
-- **Variables de entorno:** `WORD_SEED`, `GAME_SECRET` y `START_DATE`, con valores distintos en Production y Preview.
+- **Producción:** https://wordkstate.vercel.app (español en `/es`, inglés en `/en`).
+- **Despliegue continuo:** cada push a `main` se publica automáticamente mediante la integración Git de Vercel.
+- **Build:** preset Next.js; `pnpm install` / `pnpm build`; Node 24 tomado de `engines`; `ENABLE_EXPERIMENTAL_COREPACK=1` para usar pnpm 11.18.0 de `packageManager`.
+- **Variables de entorno:** `WORD_SEED`, `GAME_SECRET` y `START_DATE` (`2026-09-15`), con valores distintos en Production y Preview.
+- **Verificado en producción (2026-09-15):**
+  - rutas y redirección por idioma;
+  - secretos distintos a los de desarrollo;
+  - rechazos de la API;
+  - tokens alterados rechazados;
+  - la solución no aparece en el HTML ni en el JavaScript;
+  - cabeceras de seguridad.
 - **Recomendado:** protección de Preview, Vercel Analytics o Speed Insights (opcional) y regla de *rate limit* para `/api/guess`.
 
 ### 14.4 Depuración y entorno local
@@ -811,7 +822,7 @@ type Stats = {
 
 | Tema | Estado |
 |---|---|
-| Configuración de Vercel y dominio | Pendiente (se hará en conjunto) |
+| Configuración de Vercel y dominio | ✅ Desplegado en https://wordkstate.vercel.app (revisar protección de Preview y secretos de Preview en el panel) |
 | Medición de Lighthouse (rendimiento/accesibilidad ≥ 90) | Pendiente |
 | Estadísticas globales o sincronización entre dispositivos | Fuera del MVP (requeriría KV/base de datos) |
 | *Rate limiting* de la API | Pendiente (Vercel Firewall) |
