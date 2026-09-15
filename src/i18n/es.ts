@@ -121,6 +121,10 @@ const es = {
     listsLicense:
       'Las listas de palabras derivadas se publican bajo CC BY-SA 4.0, con atribución a las fuentes anteriores.',
     back: 'Volver al inicio',
+    author: 'Autor',
+    email: 'Correo',
+    github: 'GitHub',
+    madeBy: 'Hecho por',
   },
   notFound: 'Página no encontrada',
 } as const;

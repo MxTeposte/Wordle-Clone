@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getDictionary, otherLang } from '@/i18n';
+import { AUTHOR } from '@/lib/author';
 import { todayLocal } from '@/lib/dates';
 import { CREDITS_SLUG, GAME_LIST, gamePath } from '@/lib/games';
 import { keys, readJSON, type SavedGame } from '@/lib/storage';
@@ -96,10 +97,18 @@ export function GameMenu({ lang, startDate }: { lang: Lang; startDate: string })
         </ul>
       </main>
       <footer className="mx-auto w-full max-w-3xl px-4 py-6 text-sm text-[var(--muted)]">
-        {t.menu.footer}{' '}
-        <Link href={`/${lang}/${CREDITS_SLUG[lang]}`} className="font-semibold underline underline-offset-2">
-          {t.nav.credits}
-        </Link>
+        <p>
+          {t.menu.footer}{' '}
+          <Link href={`/${lang}/${CREDITS_SLUG[lang]}`} className="font-semibold underline underline-offset-2">
+            {t.nav.credits}
+          </Link>
+        </p>
+        <p className="mt-1">
+          {t.credits.madeBy}{' '}
+          <a href={AUTHOR.githubUrl} className="font-semibold underline underline-offset-2" rel="noopener">
+            {AUTHOR.name}
+          </a>
+        </p>
       </footer>
       <HelpDialog open={dialog === 'help'} onClose={() => setDialog(null)} t={t} />
       <SettingsDialog open={dialog === 'settings'} onClose={() => setDialog(null)} t={t} prefs={prefs} onChange={setPrefs} />

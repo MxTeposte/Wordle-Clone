@@ -122,6 +122,10 @@ const en: Dictionary = {
     sources: 'The word lists were generated from these open sources:',
     listsLicense: 'The derived word lists are published under CC BY-SA 4.0, with attribution to the sources above.',
     back: 'Back to home',
+    author: 'Author',
+    email: 'Email',
+    github: 'GitHub',
+    madeBy: 'Made by',
   },
   notFound: 'Page not found',
 };

@@ -60,6 +60,12 @@ Usa valores distintos en Production y Preview para que las previews no revelen l
 
 Ver la checklist del plan ([plan_init.md §11.1](plan_init.md)): importar el repositorio, nombre de proyecto `wordkstate` (dominio `wordkstate.vercel.app`), variables de entorno, protección de previews y verificación final.
 
+## Autor
+
+- **Nombre:** Aarón Teposte Cancio
+- **Correo:** [aaron.teposte@workstate.com](mailto:aaron.teposte@workstate.com)
+- **GitHub:** [@MxTeposte](https://github.com/MxTeposte)
+
 ## Licencias
 
 El código aún no tiene una licencia definida. Las listas de palabras derivadas (`src/words/`) se publican bajo CC BY-SA 4.0 con atribución a SCOWL, RLA-ES, wordfreq y LDNOOBW (ver `/es/creditos`). Wordkstate no está afiliado a The New York Times ni a Wordle.

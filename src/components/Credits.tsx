@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { getDictionary } from '@/i18n';
+import { AUTHOR } from '@/lib/author';
 import type { Lang } from '@/lib/types';
 import { Logo } from './Icons';
 
@@ -43,6 +44,32 @@ export function Credits({ lang }: { lang: Lang }) {
       </Link>
       <h1 className="text-3xl font-black tracking-tight">{t.credits.title}</h1>
       <p className="mt-4 leading-relaxed">{t.credits.intro}</p>
+
+      <section aria-labelledby="author-heading" className="mt-6 rounded-xl border border-[var(--border)] bg-[var(--surface)] p-4">
+        <h2 id="author-heading" className="text-lg font-extrabold">
+          {t.credits.author}
+        </h2>
+        <dl className="mt-2 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-sm">
+          <dt className="text-[var(--muted)]">{t.credits.author}</dt>
+          <dd className="font-semibold">{AUTHOR.name}</dd>
+          <dt className="text-[var(--muted)]">{t.credits.email}</dt>
+          <dd>
+            <a href={`mailto:${AUTHOR.email}`} className="font-semibold text-[var(--accent)] underline-offset-2 hover:underline">
+              {AUTHOR.email}
+            </a>
+          </dd>
+          <dt className="text-[var(--muted)]">{t.credits.github}</dt>
+          <dd>
+            <a
+              href={AUTHOR.githubUrl}
+              className="font-semibold text-[var(--accent)] underline-offset-2 hover:underline"
+              rel="noopener"
+            >
+              @{AUTHOR.github}
+            </a>
+          </dd>
+        </dl>
+      </section>
       <p className="mt-4 leading-relaxed">{t.credits.sources}</p>
       <ul className="mt-4 space-y-4">
         {SOURCES.map((s) => (
