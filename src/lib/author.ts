@@ -2,8 +2,6 @@
 export const AUTHOR = {
   name: 'Aarón Teposte Cancio',
   email: 'aaron.teposte@workstate.com',
-  github: 'MxTeposte',
-  githubUrl: 'https://github.com/MxTeposte',
 } as const;
 
 /** Herramienta con la que se construyó el proyecto. */

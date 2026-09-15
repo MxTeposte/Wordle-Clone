@@ -15,7 +15,7 @@ Documento de referencia técnica del proyecto: tecnologías, arquitectura, rutas
 | **GitHub** | [@MxTeposte](https://github.com/MxTeposte) |
 | **Construido con** | [Claude - Opus 5](https://www.anthropic.com/claude) |
 
-En la aplicación, estos datos (incluido "Construido con Claude - Opus 5") aparecen en `/es/creditos` · `/en/credits` (sección "Autor") y en el pie del menú. Se definen en `src/lib/author.ts`.
+En la aplicación se muestran el nombre, el correo y "Construido con Claude - Opus 5" en `/es/creditos` · `/en/credits` (sección "Autor"), y el nombre en el pie del menú. **El usuario de GitHub no se muestra en el juego** a petición del autor. Se definen en `src/lib/author.ts`.
 
 ---
 

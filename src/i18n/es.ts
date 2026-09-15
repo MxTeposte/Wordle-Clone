@@ -123,7 +123,6 @@ const es = {
     back: 'Volver al inicio',
     author: 'Autor',
     email: 'Correo',
-    github: 'GitHub',
     madeBy: 'Hecho por',
     builtWith: 'Construido con',
   },

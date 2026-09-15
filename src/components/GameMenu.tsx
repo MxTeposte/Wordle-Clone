@@ -105,9 +105,7 @@ export function GameMenu({ lang, startDate }: { lang: Lang; startDate: string })
         </p>
         <p className="mt-1">
           {t.credits.madeBy}{' '}
-          <a href={AUTHOR.githubUrl} className="font-semibold underline underline-offset-2" rel="noopener">
-            {AUTHOR.name}
-          </a>
+          <span className="font-semibold">{AUTHOR.name}</span>
           {' · '}
           {t.credits.builtWith}{' '}
           <a href={BUILT_WITH.url} className="font-semibold underline underline-offset-2" rel="noopener">

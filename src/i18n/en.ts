@@ -124,7 +124,6 @@ const en: Dictionary = {
     back: 'Back to home',
     author: 'Author',
     email: 'Email',
-    github: 'GitHub',
     madeBy: 'Made by',
     builtWith: 'Built with',
   },

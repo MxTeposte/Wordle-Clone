@@ -58,16 +58,6 @@ export function Credits({ lang }: { lang: Lang }) {
               {AUTHOR.email}
             </a>
           </dd>
-          <dt className="text-[var(--muted)]">{t.credits.github}</dt>
-          <dd>
-            <a
-              href={AUTHOR.githubUrl}
-              className="font-semibold text-[var(--accent)] underline-offset-2 hover:underline"
-              rel="noopener"
-            >
-              @{AUTHOR.github}
-            </a>
-          </dd>
           <dt className="text-[var(--muted)]">{t.credits.builtWith}</dt>
           <dd>
             <a
