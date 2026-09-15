@@ -13,8 +13,9 @@ Documento de referencia técnica del proyecto: tecnologías, arquitectura, rutas
 | **Nombre** | Aarón Teposte Cancio |
 | **Correo** | [aaron.teposte@workstate.com](mailto:aaron.teposte@workstate.com) |
 | **GitHub** | [@MxTeposte](https://github.com/MxTeposte) |
+| **Construido con** | [Claude - Opus 5](https://www.anthropic.com/claude) |
 
-En la aplicación, estos datos aparecen en `/es/creditos` · `/en/credits` (sección "Autor") y en el pie del menú. Se definen en `src/lib/author.ts`.
+En la aplicación, estos datos (incluido "Construido con Claude - Opus 5") aparecen en `/es/creditos` · `/en/credits` (sección "Autor") y en el pie del menú. Se definen en `src/lib/author.ts`.
 
 ---
 

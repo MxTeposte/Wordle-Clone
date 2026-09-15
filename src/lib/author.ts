@@ -5,3 +5,9 @@ export const AUTHOR = {
   github: 'MxTeposte',
   githubUrl: 'https://github.com/MxTeposte',
 } as const;
+
+/** Herramienta con la que se construyó el proyecto. */
+export const BUILT_WITH = {
+  name: 'Claude - Opus 5',
+  url: 'https://www.anthropic.com/claude',
+} as const;

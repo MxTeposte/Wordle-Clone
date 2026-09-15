@@ -125,6 +125,7 @@ const es = {
     email: 'Correo',
     github: 'GitHub',
     madeBy: 'Hecho por',
+    builtWith: 'Construido con',
   },
   notFound: 'Página no encontrada',
 } as const;

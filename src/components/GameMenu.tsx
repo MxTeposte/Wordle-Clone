@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { getDictionary, otherLang } from '@/i18n';
-import { AUTHOR } from '@/lib/author';
+import { AUTHOR, BUILT_WITH } from '@/lib/author';
 import { todayLocal } from '@/lib/dates';
 import { CREDITS_SLUG, GAME_LIST, gamePath } from '@/lib/games';
 import { keys, readJSON, type SavedGame } from '@/lib/storage';
@@ -107,6 +107,11 @@ export function GameMenu({ lang, startDate }: { lang: Lang; startDate: string })
           {t.credits.madeBy}{' '}
           <a href={AUTHOR.githubUrl} className="font-semibold underline underline-offset-2" rel="noopener">
             {AUTHOR.name}
+          </a>
+          {' · '}
+          {t.credits.builtWith}{' '}
+          <a href={BUILT_WITH.url} className="font-semibold underline underline-offset-2" rel="noopener">
+            {BUILT_WITH.name}
           </a>
         </p>
       </footer>

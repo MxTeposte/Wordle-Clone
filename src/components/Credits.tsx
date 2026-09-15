@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { getDictionary } from '@/i18n';
-import { AUTHOR } from '@/lib/author';
+import { AUTHOR, BUILT_WITH } from '@/lib/author';
 import type { Lang } from '@/lib/types';
 import { Logo } from './Icons';
 
@@ -66,6 +66,16 @@ export function Credits({ lang }: { lang: Lang }) {
               rel="noopener"
             >
               @{AUTHOR.github}
+            </a>
+          </dd>
+          <dt className="text-[var(--muted)]">{t.credits.builtWith}</dt>
+          <dd>
+            <a
+              href={BUILT_WITH.url}
+              className="font-semibold text-[var(--accent)] underline-offset-2 hover:underline"
+              rel="noopener"
+            >
+              {BUILT_WITH.name}
             </a>
           </dd>
         </dl>

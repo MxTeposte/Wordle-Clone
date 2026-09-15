@@ -65,6 +65,7 @@ Ver la checklist del plan ([plan_init.md §11.1](plan_init.md)): importar el rep
 - **Nombre:** Aarón Teposte Cancio
 - **Correo:** [aaron.teposte@workstate.com](mailto:aaron.teposte@workstate.com)
 - **GitHub:** [@MxTeposte](https://github.com/MxTeposte)
+- **Construido con:** [Claude - Opus 5](https://www.anthropic.com/claude)
 
 ## Licencias
 

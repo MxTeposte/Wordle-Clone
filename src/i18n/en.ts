@@ -20,7 +20,7 @@ const en: Dictionary = {
     play: 'Play',
     practice: 'Practice',
     status: { pending: 'Not played', playing: 'In progress', won: 'Solved', lost: 'Not solved' },
-    footer: 'Built with open word lists.',
+    footer: 'Powered by open word lists.',
   },
   games: {
     w5: { name: '5-letter word', short: '5', description: (n: number) => `Guess the 5-letter word in ${n} tries.` },
@@ -126,6 +126,7 @@ const en: Dictionary = {
     email: 'Email',
     github: 'GitHub',
     madeBy: 'Made by',
+    builtWith: 'Built with',
   },
   notFound: 'Page not found',
 };
