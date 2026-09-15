@@ -12,7 +12,7 @@ Cada juego tiene reto diario y modo práctica (`/es/5/practica`, `/en/5/practice
 
 ## Requisitos
 
-- Node.js ≥ 20.9 (en Vercel se recomienda 22 o 24)
+- Node.js 24 (ver `.nvmrc`; Vercel toma la versión de `engines` en `package.json`)
 - pnpm 11
 
 ## Desarrollo

@@ -1,0 +1,57 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Next.js: servidor (API y páginas)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "pnpm dev --inspect",
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "Next.js: cliente (Chrome)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000/es",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "name": "Next.js: full stack",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/next/dist/bin/next",
+      "args": ["dev"],
+      "runtimeArgs": ["--inspect"],
+      "cwd": "${workspaceFolder}",
+      "skipFiles": ["<node_internals>/**"],
+      "serverReadyAction": {
+        "action": "debugWithChrome",
+        "killOnServerStop": true,
+        "pattern": "- Local:.+(https?://.+)",
+        "uriFormat": "%s/es",
+        "webRoot": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "Vitest: archivo actual",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/node_modules/vitest/vitest.mjs",
+      "args": ["run", "${relativeFile}"],
+      "cwd": "${workspaceFolder}",
+      "autoAttachChildProcesses": true,
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "Script: words:build",
+      "type": "node",
+      "request": "launch",
+      "runtimeArgs": ["--import", "tsx"],
+      "program": "${workspaceFolder}/scripts/build-words.ts",
+      "cwd": "${workspaceFolder}",
+      "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
+      "console": "integratedTerminal"
+    }
+  ]
+}
