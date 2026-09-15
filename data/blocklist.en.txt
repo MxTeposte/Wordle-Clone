@@ -1,0 +1,21 @@
+# Words that must NOT be answers in English (they remain valid guesses).
+# Whitespace separated; comments with #.
+
+# Proper nouns, brands and names that SCOWL lists in lowercase
+china japan smith peter frank harry jimmy roger maria billy terry bobby sally randy sonny hogan yahoo trump intel paddy
+welsh roman bible mecca emery serge twain taser
+google amazon martin miller oxford cooper warren wright turner victor potter newton afghan soviet french surrey madras
+phoebe hector sawyer tucker jasper bowman walker barker tanner sierra guinea hobbit tinder sharia sheikh salaam
+
+# Slang, contractions and prefixes
+gonna wanna gotta kinda dunno sorta lemme gimme multi inter stats mamma biggie hookup
+
+# Offensive, sexual or sensitive
+jihad sperm pubic feces butch bosom fanny sissy lynch queer idiot moron slave gypsy bigot harem sahib pasha
+racist racism sexist sexism fucker bitchy douche retard midget junkie crotch herpes condom uterus cervix pelvic libido
+hickey stoner heroin opioid bugger crappy wiener sucker psycho weirdo abuser gunman gunmen
+
+# Comparatives and irregular plurals
+newer safer fewer older wider nicer wiser rarer finer shalt
+larger bigger closer easier faster harder slower cooler darker weaker louder fuller warmer taller richer hotter poorer
+softer colder nearer wilder fairer fatter calmer milder dumber deeper sooner rabbis larvae nuclei genera airmen

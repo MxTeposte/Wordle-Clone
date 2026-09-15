@@ -427,3 +427,16 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# ---- Node / Next.js (Wordkstate) ----
+node_modules/
+.next/
+next-env.d.ts
+.vercel/
+.env*.local
+.env
+*.tsbuildinfo
+coverage/
+playwright-report/
+test-results/
+data/raw/

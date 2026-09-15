@@ -1,0 +1,1 @@
+# Words accepted as guesses that are missing from the dictionary (never answers).

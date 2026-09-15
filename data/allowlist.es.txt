@@ -1,0 +1,2 @@
+# Palabras que se fuerzan como solución (y como intento válido).
+# Separadas por espacios o saltos de línea; comentarios con #.

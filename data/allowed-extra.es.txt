@@ -1,0 +1,1 @@
+# Palabras aceptadas como intento que faltan en el diccionario (nunca solución).

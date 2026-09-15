@@ -1,0 +1,40 @@
+# Palabras que NO deben ser solución en español (siguen siendo intentos válidos).
+# Una por línea; se normalizan (tildes da igual). Comentarios con #.
+
+# Formas verbales conjugadas o con pronombres enclíticos que el diccionario lista como raíz
+puede estan estas estoy habia puedo vamos seria hemos somos pueda podia habra darle seran dando podra esten hayan suele entro juega vayan diria fuese darse estes darte vayas yendo darme damos daria hayas serlo solia seras daban andan diera andes daran huele diste dimos diran hazlo andas demos preve unete hazte habre irnos daras hazme fuere denle diras darlo irian jugue diles denme danos daros darla diese serle quepa seais dales hazle cases erase irias dinos obten estad huela dabas huelo
+estaba pueden fueron siendo puedes podria habian estuvo habria puedan dieron estara podido estuve podran puedas suelen fueran podian serian habido fuimos podras fuiste estare darles seamos habeis eramos juegan darnos habran serias estais jugaba fueras andaba ibamos fuesen iremos habias dieran solian podias jugara decime habras regala juegue juegas darian dirian andate echale huelen decile anduvo antoja dirias estate manten hacete darias hacelo preven podais dimelo hagase esteis hayais habida dieras fueses anduve sueles hagalo
+
+# Plurales que el diccionario lista como raíz
+dados dadas patas genes tours clubs pelis polis sexys items roses lores corps paises dioses ostras termas cercas sendos
+
+# Nombres propios, siglas, abreviaturas, extranjerismos crudos y errores
+lucas aprox grant judas depto coord delos quier stand crack cross blues bonus ferry hobby venus aries islam morse hindi cuasi
+panama victor moises capita priori guayas empece piscis versus
+
+# --- Revisión de la lista generada ---
+# Nombres propios, lugares y marcas
+chile diego corea ramon siria cesar henry silva julia marta colon diana simon mateo juana marte bruno luisa rioja congo milan
+belen dante romeo roque jerez guido carla apolo mauro lucio celia gales tesla lidia otero elche llosa cuzco argel weber
+petra leila volvo oribe tulio creta merlo serna fraga pavon cisco greco chaco quito arana chapo virgo tauro
+brasil garcia felipe martin cristo castro rivera carmen puebla teresa alonso malaga romero medina ortega berlin samuel
+guzman benito duarte lazaro coruña camilo german potosi lozano sancho callao manila helena pancho newton manolo solano
+fausto platon pineda pamela olmedo pascal cepeda aviles jordan rebeca gamboa balboa atocha guaira orense milano zurita
+quique borneo melgar merlin rondon alaves caribe indico
+# Extranjerismos crudos
+green grand sport dance force flash mouse rouge ferro
+# Vulgares u ofensivos
+porno joder cagar polla zorra ostia coito orgia nalga ojete cholo chota choto braga
+carajo boludo pajero culero chucha tetona putear pollas chocho hostia
+# Formas verbales conjugadas, participios verbales y enclíticos
+queda lleva manda quita canta cuida rodea grita narra dobla aleja aloja ladra brota chupa calla baila rinde traga torna
+lleve salga acabe muera falte pegue cante choco vendo niego vendi podre canso lloro corro sufra corra verme salio tenia
+pario parta leido leida usada
+pienso llegue afecta pierde alegro alegra invito acepto recibi emplea miente cuelga preste presta escapo estira premia remite
+dejado tomado salido sabido jugado tocado metido robado traido matado comido fijado pegado echado creido negado cogido
+movido mirado tirado pagado sacado sacada guiado donado votada bebido sonado pisado colado dejada fumado andado negada
+regido echada traida tomada pagada tocada tapada robada nacido vuelto
+# Plurales y diminutivos
+lados seres meses gatos pares ratas pelos tonos buses magos nudos telas paros ranas dones galas buzos panes
+bancos cortes bandas barcos gustos montes carros mundos amores dobles cruces cascos tortas forros
+ratito casita mesita hijito pasito palito bolita tuiteo

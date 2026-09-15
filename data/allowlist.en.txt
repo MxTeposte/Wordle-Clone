@@ -1,0 +1,2 @@
+# Words to force into the answer lists (and valid guesses).
+# Whitespace separated; comments with #.
