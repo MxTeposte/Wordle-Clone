@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
 import { hardModeViolation } from '@/lib/hard-mode';
 import { buildShareText } from '@/lib/share';
-import { emptyStats, recordResult, visibleStreak, winPercentage } from '@/lib/stats';
+import { emptyStats, recordPracticeResult, recordResult, visibleStreak, winPercentage } from '@/lib/stats';
+import { keys } from '@/lib/storage';
 import type { GuessRecord } from '@/lib/types';
 
 describe('stats', () => {
@@ -24,6 +25,22 @@ describe('stats', () => {
   it('es idempotente por fecha', () => {
     const once = recordResult(emptyStats(6), '2026-09-15', true, 1, 6);
     expect(recordResult(once, '2026-09-15', true, 1, 6)).toBe(once);
+  });
+
+  it('práctica: sin fechas, la racha son victorias seguidas', () => {
+    let s = emptyStats(7);
+    s = recordPracticeResult(s, true, 4, 7);
+    s = recordPracticeResult(s, true, 7, 7);
+    expect(s).toMatchObject({ played: 2, wins: 2, currentStreak: 2, maxStreak: 2 });
+    expect(s.distribution).toEqual([0, 0, 0, 1, 0, 0, 1]);
+    s = recordPracticeResult(s, false, 7, 7);
+    expect(s).toMatchObject({ played: 3, wins: 2, currentStreak: 0, maxStreak: 2 });
+  });
+
+  it('las claves de práctica no pisan las del reto diario', () => {
+    expect(keys.stats('w5', 'en', false)).toBe('wordkstate:stats:w5:en');
+    expect(keys.stats('w5', 'en', false, 'practice')).toBe('wordkstate:stats:practice:w5:en');
+    expect(keys.stats('date', 'es', true, 'practice')).toBe('wordkstate:stats:practice:date:hints');
   });
 
   it('la racha visible caduca si pasa más de un día', () => {
@@ -84,9 +101,9 @@ describe('compartir', () => {
       dateHints: true,
       highContrast: true,
     };
-    expect(buildShareText({ ...base, lang: 'es' })).toBe('Wordkstate Fecha (práctica) X/6 ↕\n\n🟦🟦 ⬛⬛ 🟧🟧🟧🟧');
+    expect(buildShareText({ ...base, lang: 'es' })).toBe('Wordkstate Fecha (práctica) X/10 ↕\n\n🟦🟦 ⬛⬛ 🟧🟧🟧🟧');
     expect(buildShareText({ ...base, lang: 'en', gameLabel: 'Date', practiceLabel: 'practice' })).toBe(
-      'Wordkstate Date (practice) X/6 ↕\n\n⬛⬛ 🟦🟦 🟧🟧🟧🟧',
+      'Wordkstate Date (practice) X/10 ↕\n\n⬛⬛ 🟦🟦 🟧🟧🟧🟧',
     );
   });
 });

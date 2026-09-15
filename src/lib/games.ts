@@ -14,8 +14,8 @@ export type GameDefinition = {
 export const GAMES: Record<GameId, GameDefinition> = {
   w5: { id: 'w5', length: 5, maxAttempts: 6, kind: 'word', slug: { es: '5', en: '5' } },
   w6: { id: 'w6', length: 6, maxAttempts: 7, kind: 'word', slug: { es: '6', en: '6' } },
-  // Intentos iniciales del juego de fecha: se ajustan tras las pruebas de juego (plan §6.3).
-  date: { id: 'date', length: 8, maxAttempts: 6, kind: 'date', slug: { es: 'fecha', en: 'date' } },
+  // 10 intentos: decisión del 2026-09-15 (se empezó con 6, plan §6.3).
+  date: { id: 'date', length: 8, maxAttempts: 10, kind: 'date', slug: { es: 'fecha', en: 'date' } },
 };
 
 export const GAME_LIST: GameDefinition[] = [GAMES.w5, GAMES.w6, GAMES.date];

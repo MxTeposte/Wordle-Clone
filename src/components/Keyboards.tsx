@@ -25,6 +25,7 @@ function Key({
   wide,
   onClick,
   disabled,
+  compact,
 }: {
   label: React.ReactNode;
   ariaLabel?: string;
@@ -32,11 +33,12 @@ function Key({
   wide?: boolean;
   onClick: () => void;
   disabled?: boolean;
+  compact?: boolean;
 }) {
   return (
     <button
       type="button"
-      className={`key h-14 text-base ${wide ? 'flex-[1.5] px-1 text-xs' : 'flex-1'} min-w-0`}
+      className={`key ${compact ? 'h-12' : 'h-14'} text-base ${wide ? 'flex-[1.5] px-1 text-xs' : 'flex-1'} min-w-0`}
       data-state={state}
       onClick={onClick}
       disabled={disabled}
@@ -79,19 +81,17 @@ export function LetterKeyboard({ t, lang, states, onKey, onEnter, onBackspace, d
 }
 
 export function NumericKeyboard({ t, states, onKey, onEnter, onBackspace, disabled }: KeyboardProps) {
-  const rows = ['12345'.split(''), '67890'.split('')];
+  // Compacto (dos filas) para que el tablero de 10 intentos quepa en pantallas de móvil.
   return (
-    <div className="mx-auto flex w-full max-w-md flex-col gap-1.5 px-1.5" role="group" aria-label={t.game.keyboard}>
-      {rows.map((row, i) => (
-        <div key={i} className="flex gap-1.5">
-          {row.map((key) => (
-            <Key key={key} label={key} state={states.get(key)} onClick={() => onKey(key)} disabled={disabled} />
-          ))}
-        </div>
-      ))}
+    <div className="mx-auto flex w-full max-w-lg flex-col gap-1.5 px-1.5" role="group" aria-label={t.game.keyboard}>
+      <div className="flex gap-1">
+        {'1234567890'.split('').map((key) => (
+          <Key key={key} label={key} state={states.get(key)} onClick={() => onKey(key)} disabled={disabled} compact />
+        ))}
+      </div>
       <div className="flex gap-1.5">
-        <Key label={t.game.enter} onClick={onEnter} disabled={disabled} />
-        <Key label={<BackspaceIcon />} ariaLabel={t.game.backspace} onClick={onBackspace} disabled={disabled} />
+        <Key label={t.game.enter} onClick={onEnter} disabled={disabled} compact />
+        <Key label={<BackspaceIcon />} ariaLabel={t.game.backspace} onClick={onBackspace} disabled={disabled} compact />
       </div>
     </div>
   );

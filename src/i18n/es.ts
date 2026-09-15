@@ -21,9 +21,13 @@ const es = {
     footer: 'Hecho con listas de palabras abiertas.',
   },
   games: {
-    w5: { name: 'Palabra de 5', short: '5', description: 'Adivina la palabra de 5 letras en 6 intentos.' },
-    w6: { name: 'Palabra de 6', short: '6', description: 'Adivina la palabra de 6 letras en 7 intentos.' },
-    date: { name: 'Fecha', short: 'Fecha', description: 'Adivina la fecha oculta entre 1900 y hoy en 6 intentos.' },
+    w5: { name: 'Palabra de 5', short: '5', description: (n: number) => `Adivina la palabra de 5 letras en ${n} intentos.` },
+    w6: { name: 'Palabra de 6', short: '6', description: (n: number) => `Adivina la palabra de 6 letras en ${n} intentos.` },
+    date: {
+      name: 'Fecha',
+      short: 'Fecha',
+      description: (n: number) => `Adivina la fecha oculta entre 1900 y hoy en ${n} intentos.`,
+    },
   },
   game: {
     daily: (n: number) => `Reto #${n}`,
@@ -86,6 +90,8 @@ const es = {
     currentStreak: 'Racha actual',
     maxStreak: 'Mejor racha',
     distribution: 'Distribución de intentos',
+    daily: 'Reto diario',
+    practice: 'Práctica',
     withHints: 'Con flechas',
     withoutHints: 'Sin flechas',
     none: 'Todavía no hay partidas.',

@@ -25,6 +25,6 @@ export function gameMetadata(lang: string, slug: string, practice: boolean): Met
   const name = t.games[game.id].name;
   return {
     title: practice ? `${name} · ${t.game.practiceBadge}` : name,
-    description: t.games[game.id].description,
+    description: t.games[game.id].description(game.maxAttempts),
   };
 }

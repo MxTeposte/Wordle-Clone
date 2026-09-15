@@ -44,6 +44,25 @@ export function recordResult(stats: Stats, date: string, won: boolean, attempts:
   };
 }
 
+/**
+ * Registra una partida de práctica. No hay fechas: la racha cuenta victorias
+ * consecutivas y se reinicia con cada derrota. La idempotencia la garantiza
+ * la marca `statsRecorded` de la partida guardada.
+ */
+export function recordPracticeResult(stats: Stats, won: boolean, attempts: number, maxAttempts: number): Stats {
+  const distribution = Array.from({ length: maxAttempts }, (_, i) => stats.distribution[i] ?? 0);
+  if (won) distribution[attempts - 1] += 1;
+  const currentStreak = won ? stats.currentStreak + 1 : 0;
+  return {
+    played: stats.played + 1,
+    wins: stats.wins + (won ? 1 : 0),
+    currentStreak,
+    maxStreak: Math.max(stats.maxStreak, currentStreak),
+    distribution,
+    lastWon: won,
+  };
+}
+
 /** La racha visible se pierde si se saltó un día (sin modificar lo guardado). */
 export function visibleStreak(stats: Stats, today: string): number {
   if (!stats.lastDate || !stats.lastWon) return 0;

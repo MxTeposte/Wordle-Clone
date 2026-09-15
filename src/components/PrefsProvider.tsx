@@ -1,6 +1,6 @@
 'use client';
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { createContext, useCallback, useContext, useLayoutEffect, useMemo, useState } from 'react';
 import { DEFAULT_PREFS, keys, type Prefs, readJSON, writeJSON } from '@/lib/storage';
 
 type PrefsContextValue = {
@@ -15,14 +15,16 @@ export function PrefsProvider({ children }: { children: React.ReactNode }) {
   const [prefs, setState] = useState<Prefs>(DEFAULT_PREFS);
   const [loaded, setLoaded] = useState(false);
 
-  useEffect(() => {
+  // useLayoutEffect (antes del pintado): en desarrollo, el remontaje de Strict Mode borra
+  // los atributos que puso el script en línea sobre <html>; así se reaplican sin parpadeo.
+  useLayoutEffect(() => {
     // Lectura única de localStorage tras montar (no disponible durante el render estático).
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setState({ ...DEFAULT_PREFS, ...readJSON<Partial<Prefs>>(keys.prefs) });
     setLoaded(true);
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const root = document.documentElement;
     const media = window.matchMedia('(prefers-color-scheme: dark)');
     const apply = () => {

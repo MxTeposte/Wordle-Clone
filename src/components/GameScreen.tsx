@@ -16,7 +16,7 @@ import { gamePath, GAMES } from '@/lib/games';
 import { hardModeViolation } from '@/lib/hard-mode';
 import { normalizeKey } from '@/lib/normalize';
 import { buildShareText } from '@/lib/share';
-import { emptyStats, recordResult, type Stats, visibleStreak } from '@/lib/stats';
+import { emptyStats, recordPracticeResult, recordResult, type Stats, visibleStreak } from '@/lib/stats';
 import { keys, pruneOldGames, readJSON, type SavedGame, writeJSON } from '@/lib/storage';
 import type { DateHints, GameId, Lang, Mode, TileResult } from '@/lib/types';
 import { DateBoard, revealDuration, WordBoard } from './Boards';
@@ -113,15 +113,13 @@ export function GameScreen({ lang, gameId, mode, startDate }: Props) {
           // Sin conexión: la solución se pedirá de nuevo al volver.
         }
       }
-      if (mode === 'daily' && dailyDate && !next.statsRecorded) {
-        const statsKey = keys.stats(gameId, lang, game.dateHints);
-        const updated = recordResult(
-          readJSON<Stats>(statsKey) ?? emptyStats(def.maxAttempts),
-          dailyDate,
-          won,
-          game.guesses.length,
-          def.maxAttempts,
-        );
+      if (!next.statsRecorded && (mode === 'practice' || dailyDate)) {
+        const statsKey = keys.stats(gameId, lang, game.dateHints, mode);
+        const current = readJSON<Stats>(statsKey) ?? emptyStats(def.maxAttempts);
+        const updated =
+          mode === 'daily' && dailyDate
+            ? recordResult(current, dailyDate, won, game.guesses.length, def.maxAttempts)
+            : recordPracticeResult(current, won, game.guesses.length, def.maxAttempts);
         writeJSON(statsKey, updated);
         setStats(updated);
         next.statsRecorded = true;
@@ -200,7 +198,7 @@ export function GameScreen({ lang, gameId, mode, startDate }: Props) {
       const existing = readJSON<SavedGame>(keys.practice(gameId, lang));
       if (existing?.token) {
         setSaved(existing);
-        if (existing.status !== 'playing' && !existing.solution) await finish(existing, null, keys.practice(gameId, lang), true);
+        if (existing.status !== 'playing' && (!existing.solution || !existing.statsRecorded)) await finish(existing, null, keys.practice(gameId, lang), true);
       } else {
         await newPractice();
       }
@@ -223,8 +221,8 @@ export function GameScreen({ lang, gameId, mode, startDate }: Props) {
     }
   }, [prefsLoaded, gameId, lang, mode]);
 
-  // Estadísticas visibles (dependen de si la partida de fecha usa flechas).
-  const statsKey = keys.stats(gameId, lang, saved?.dateHints ?? false);
+  // Estadísticas visibles: del modo actual (diario o práctica) y, en fecha, con o sin flechas.
+  const statsKey = keys.stats(gameId, lang, saved?.dateHints ?? false, mode);
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setStats(readJSON<Stats>(statsKey) ?? emptyStats(def.maxAttempts));
@@ -454,6 +452,12 @@ export function GameScreen({ lang, gameId, mode, startDate }: Props) {
   // Render
   // -------------------------------------------------------------------------
   const states = useMemo(() => keyStates(saved?.guesses ?? [], def.kind), [saved?.guesses, def.kind]);
+
+  // Si el tablero no cabe (pantallas muy bajas), mantener visible la fila actual.
+  const guessCount = saved?.guesses.length ?? 0;
+  useEffect(() => {
+    document.querySelector('[data-current-row]')?.scrollIntoView({ block: 'nearest' });
+  }, [guessCount]);
   const finished = saved && saved.status !== 'playing';
   const lastWinAttempts = saved?.status === 'won' ? saved.guesses.length : undefined;
   const subtitle = mode === 'daily' ? (saved?.puzzleNumber ? t.game.daily(saved.puzzleNumber) : '') : t.game.practiceBadge;
@@ -502,7 +506,8 @@ export function GameScreen({ lang, gameId, mode, startDate }: Props) {
           )}
         </div>
 
-        <div className="flex flex-1 items-center justify-center" aria-busy={!saved}>
+        <div className="flex min-h-0 w-full flex-1 overflow-y-auto" aria-busy={!saved}>
+          <div className="m-auto py-1">
           {!saved ? (
             <p className="text-[var(--muted)]">{t.game.loading}</p>
           ) : isDate ? (
@@ -510,6 +515,7 @@ export function GameScreen({ lang, gameId, mode, startDate }: Props) {
           ) : (
             <WordBoard {...boardProps} length={def.length} />
           )}
+          </div>
         </div>
 
         {finished ? (
@@ -575,10 +581,13 @@ export function GameScreen({ lang, gameId, mode, startDate }: Props) {
         onClose={() => setDialog(null)}
         t={t}
         stats={stats}
-        streak={visibleStreak(stats, date ?? todayLocal())}
+        streak={mode === 'daily' ? visibleStreak(stats, date ?? todayLocal()) : stats.currentStreak}
         maxAttempts={def.maxAttempts}
         highlight={finished ? lastWinAttempts : undefined}
-        subtitle={isDate ? (saved?.dateHints ? t.stats.withHints : t.stats.withoutHints) : `${t.games[gameId].name} · ${lang.toUpperCase()}`}
+        subtitle={[
+          mode === 'daily' ? t.stats.daily : t.stats.practice,
+          isDate ? (saved?.dateHints ? t.stats.withHints : t.stats.withoutHints) : `${t.games[gameId].name} · ${lang.toUpperCase()}`,
+        ].join(' · ')}
       >
         {finished && (
           <div className="mt-5 space-y-3 border-t border-[var(--border)] pt-4 text-center">

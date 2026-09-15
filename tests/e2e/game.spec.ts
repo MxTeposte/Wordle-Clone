@@ -26,6 +26,28 @@ test.describe('navegación e idioma', () => {
     await expect(page.getByRole('heading', { name: '5-letter word' })).toBeVisible();
   });
 
+  test('aplica el tema guardado y no avisa de <script> al navegar', async ({ page }) => {
+    const scriptWarnings: string[] = [];
+    page.on('console', (msg) => {
+      if (msg.text().includes('script tag')) scriptWarnings.push(msg.text());
+    });
+    await page.addInitScript(() =>
+      window.localStorage.setItem(
+        'wordkstate:prefs',
+        JSON.stringify({ theme: 'dark', highContrast: true, hardMode: false, dateHints: false }),
+      ),
+    );
+    await page.goto('/es');
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+    await expect(page.locator('html')).toHaveAttribute('data-contrast', 'high');
+    await page.getByRole('link', { name: /Idioma/ }).click();
+    await expect(page).toHaveURL(/\/en$/);
+    await page.getByRole('link', { name: 'Play' }).first().click();
+    await expect(page).toHaveURL(/\/en\/5$/);
+    await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+    expect(scriptWarnings).toEqual([]);
+  });
+
   test('slugs traducidos: /en/fecha no existe', async ({ page }) => {
     const res = await page.goto('/en/fecha');
     expect(res?.status()).toBe(404);
@@ -121,6 +143,28 @@ test.describe('juego de fecha', () => {
     await expect(page.getByRole('dialog', { name: 'Statistics' })).toContainText('With arrows', { timeout: 8000 });
   });
 
+  test('permite 10 intentos antes de perder', async ({ page }) => {
+    await openGame(page, '/es/fecha');
+    const solution = dailyDate();
+    const wrong = Array.from({ length: 11 }, (_, i) => `19${String(10 + i * 7).padStart(2, '0')}-03-15`)
+      .filter((d) => d !== solution)
+      .slice(0, 10);
+    const status = () =>
+      page.evaluate(() => {
+        const key = Object.keys(localStorage).find((k) => k.startsWith('wordkstate:date:daily:'));
+        return key ? (JSON.parse(localStorage.getItem(key)!).status as string) : 'playing';
+      });
+
+    for (const [i, d] of wrong.entries()) {
+      await guess(page, dateKeys(d, 'es'));
+      await page.waitForTimeout(2000);
+      if (i < 9) expect(await status()).toBe('playing');
+    }
+    expect(await status()).toBe('lost');
+    await expect(page.getByRole('group', { name: 'Intento 10' })).toBeVisible();
+    await expect(page.getByRole('dialog', { name: 'Estadísticas' })).toContainText('La solución era', { timeout: 8000 });
+  });
+
   test('la fecha diaria es la misma en español (formato DD/MM/AAAA)', async ({ page }) => {
     await openGame(page, '/es/fecha');
     await guess(page, dateKeys(dailyDate(), 'es'));
@@ -137,6 +181,23 @@ test.describe('práctica', () => {
     await expect
       .poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('wordkstate:w6:es:practice')!).token))
       .not.toBe(token1);
+  });
+
+  test('registra estadísticas propias de práctica', async ({ page }) => {
+    await openGame(page, '/en/5/practice');
+    const key = 'wordkstate:w5:en:practice';
+    const status = () => page.evaluate((k) => JSON.parse(localStorage.getItem(k)!).status as string, key);
+    for (const w of words('en', 5, 'allowed').slice(100, 106)) {
+      if ((await status()) !== 'playing') break;
+      await guess(page, w);
+      await page.waitForTimeout(2000);
+    }
+    const dialog = page.getByRole('dialog', { name: 'Statistics' });
+    await expect(dialog).toContainText('Practice', { timeout: 8000 });
+    await expect(dialog.locator('dd').first()).toHaveText('1');
+    const stored = await page.evaluate(() => JSON.parse(localStorage.getItem('wordkstate:stats:practice:w5:en')!));
+    expect(stored.played).toBe(1);
+    expect(await page.evaluate(() => localStorage.getItem('wordkstate:stats:w5:en'))).toBeNull();
   });
 
   test('un token alterado pide empezar de nuevo', async ({ page }) => {

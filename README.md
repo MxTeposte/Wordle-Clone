@@ -6,7 +6,7 @@ Juegos diarios de adivinanzas inspirados en Wordle, en **español** e **inglés*
 |---|---|---|---|
 | Palabra de 5 | 5 letras | 6 | `/es/5`, `/en/5` |
 | Palabra de 6 | 6 letras | 7 | `/es/6`, `/en/6` |
-| Fecha oculta (1900 → hoy) | 8 dígitos | 6 | `/es/fecha` (DD/MM/AAAA), `/en/date` (MM/DD/YYYY) |
+| Fecha oculta (1900 → hoy) | 8 dígitos | 10 | `/es/fecha` (DD/MM/AAAA), `/en/date` (MM/DD/YYYY) |
 
 Cada juego tiene reto diario y modo práctica (`/es/5/practica`, `/en/5/practice`…). El plan completo está en [plan_init.md](plan_init.md).
 

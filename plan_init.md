@@ -10,9 +10,9 @@ Juego de adivinanzas diario inspirado en Wordle, en **español** e **inglés**, 
 > | 1 — Fuentes y pipeline | ✅ `pnpm words:fetch` / `pnpm words:build`; 8 listas generadas y curadas (ver `data/REPORT.md`, `data/SOURCES.md`) |
 > | 2 — Núcleo de juegos | ✅ `src/lib/*`, `src/server/*`, `/api/guess`, `/api/practice/new`, `/api/reveal` |
 > | 3 — UI de palabras | ✅ Tableros 5×6 y 6×7, animaciones, teclado, modales, modo oscuro, alto contraste, modo difícil |
-> | 4 — Juego de fecha | ✅ Implementado con flechas opcionales. ⏳ Falta la prueba de juego con personas para ajustar los 6 intentos |
+> | 4 — Juego de fecha | ✅ Implementado con flechas opcionales y 10 intentos (decisión del 2026-09-15) |
 > | 5 — i18n, menú, práctica | ✅ `/es` y `/en` con slugs traducidos y práctica en los tres juegos |
-> | 6 — Calidad y lanzamiento | ✅ 66 pruebas unitarias y 22 E2E (escritorio + móvil). ⏳ Falta medir Lighthouse y configurar Vercel (§11.1), que se hará en conjunto |
+> | 6 — Calidad y lanzamiento | ✅ 68 pruebas unitarias y 28 E2E (escritorio + móvil). ⏳ Falta medir Lighthouse y configurar Vercel (§11.1), que se hará en conjunto |
 >
 > **Tamaños finales:** en/5: 1 621 soluciones y 11 088 intentos válidos · en/6: 1 860 / 19 631 · es/5: 1 231 / 9 124 · es/6: 1 487 / 21 622.
 >
@@ -31,7 +31,7 @@ Construir **Wordkstate**, con tres juegos:
 |---|---|---|---|---|
 | **Palabra de 5** | Palabra de 5 letras | 5 | 6 | ES / EN (listas distintas) |
 | **Palabra de 6** | Palabra de 6 letras | 6 | 7 | ES / EN (listas distintas) |
-| **Fecha** | Fecha oculta (día, mes, año) | 8 dígitos | 6 (ajustable tras pruebas) | Único juego; solo cambia el formato de fecha y la interfaz |
+| **Fecha** | Fecha oculta (día, mes, año) | 8 dígitos | 10 | Único juego; solo cambia el formato de fecha y la interfaz |
 
 Cada juego tiene:
 
@@ -52,7 +52,7 @@ Las listas de palabras se **generan a partir de fuentes abiertas, con licencia c
 | 4 | Nombre público: **Wordkstate**. No se usa la marca "Wordle" |
 | 5 | Rango del juego de fecha: desde el **01/01/1900 hasta el día del reto** (nunca fechas futuras) |
 | 6 | Flechas ↑/↓ del juego de fecha: **opcionales**, desactivadas por defecto |
-| 7 | Juego de fecha: se empieza con **6 intentos** y se ajusta tras las pruebas de juego |
+| 7 | Juego de fecha: **10 intentos** (se empezó con 6; ajustado a 10 el 2026-09-15) |
 | 8 | Dominio: subdominio gratuito de Vercel (`wordkstate.vercel.app`). La configuración se hace al final, en la Fase 6 (ver §11.1) |
 
 ### 1.2 Reglas de los juegos de palabras
@@ -77,7 +77,7 @@ Las listas de palabras se **generan a partir de fuentes abiertas, con licencia c
 - **Flechas opcionales:** una flecha ↑/↓ (o `=`) por campo (día, mes, año) que indica si el valor real es mayor, menor o igual.
   - Se activan en la configuración y vienen **desactivadas por defecto**.
   - Igual que el modo difícil de Wordle, solo se pueden cambiar **antes del primer intento** de la partida; después quedan fijas.
-  - El resultado compartido indica si se jugó con flechas (p. ej. `Wordkstate Fecha #123 4/6 ↕`).
+  - El resultado compartido indica si se jugó con flechas (p. ej. `Wordkstate Fecha #123 4/10 ↕`).
 - Teclado numérico en pantalla (0–9, borrar, enviar) y teclado físico. El cursor salta solo los separadores.
 
 ---
@@ -319,10 +319,10 @@ Como el color "verde" depende de la posición dentro de cada campo y el "amarill
 
 ### 6.3 Dificultad
 
-- 6 intentos para 8 dígitos. La restricción de "fecha real" y el rango limitado reducen mucho el espacio de búsqueda: hoy son ≈ 46 000 fechas y crecen 365 al año.
+- 10 intentos para 8 dígitos. La restricción de "fecha real" y el rango limitado reducen mucho el espacio de búsqueda: hoy son ≈ 46 000 fechas y crecen 365 al año.
 - Los dos primeros dígitos del año solo pueden ser `19` o `20`, y el año nunca supera el actual. La interfaz lo aprovecha para advertir de intentos imposibles.
 - Las flechas ↑/↓ por campo son la palanca principal de dificultad: con ellas el juego es accesible; sin ellas se parece más a Wordle puro. Son opcionales y vienen desactivadas por defecto.
-- Los 6 intentos iniciales se ajustan en la Fase 4 con pruebas de juego internas. Métrica guía: que la mayoría de partidas **sin** flechas se resuelvan entre el intento 4 y el 6.
+- Se empezó con 6 intentos y se fijaron en **10** (decisión del 2026-09-15). Métrica guía para futuras revisiones: que la mayoría de partidas **sin** flechas se resuelvan antes del último intento.
 - Las estadísticas se guardan por separado con y sin flechas, para no mezclar niveles de dificultad.
 - Contenido temático, fuera del MVP: "fecha histórica del día", donde la solución es un evento real y se muestra al terminar.
 
@@ -477,7 +477,7 @@ Casos de test obligatorios:
 - Fila de 8 casillas con separadores y orden según el idioma, teclado numérico y etiquetas "Día / Mes / Año".
 - Flechas opcionales por campo, con el ajuste bloqueado tras el primer intento.
 - Validación en la interfaz (fecha inexistente, anterior a 1900, futura) y mensajes de error.
-- Pruebas de juego internas, con y sin flechas, para ajustar los 6 intentos iniciales (métrica en §6.3).
+- Pruebas de juego internas, con y sin flechas. Resultado: 10 intentos (§6.3).
 
 ### Fase 5 — i18n, menú y modo práctica (1–2 días)
 - Rutas `/es` y `/en` con slugs traducidos, menú de juegos, selector de idioma y textos.
@@ -555,4 +555,3 @@ Todas las decisiones de alcance del MVP están tomadas (§1.1). Quedan como mejo
 1. **Estadísticas globales** (porcentaje de aciertos del día): fuera del MVP.
 2. **Dominio propio** (p. ej. `wordkstate.com`) si el proyecto crece.
 3. **"Fecha histórica del día"**: soluciones ligadas a eventos reales (§6.3).
-4. **Número final de intentos del juego de fecha**: se fija al terminar la Fase 4.

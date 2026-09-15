@@ -104,8 +104,9 @@ const ARROW: Record<DateHints[DateField], string> = { up: '↑', down: '↓', eq
 export function DateBoard({ t, lang, showHints, ...s }: BoardState & { t: Dictionary; lang: Lang; showHints: boolean }) {
   const order = DISPLAY_ORDER[lang];
   const fields = FIELD_ORDER[lang];
-  const rowHeight = showHints ? '1.25rem' : '0rem';
-  const size = `min(2.9rem, calc((100vw - 3.5rem) / 8 - 0.3rem), calc((100dvh - 21rem) / ${s.maxAttempts} - 0.375rem - ${rowHeight}))`;
+  const rowHeight = showHints ? '1rem' : '0rem';
+  // Mínimo legible de 1.75rem: en pantallas muy bajas el tablero se desplaza en lugar de encogerse.
+  const size = `max(1.75rem, min(2.9rem, calc((100vw - 3.5rem) / 8 - 0.3rem), calc((100dvh - 16.5rem) / ${s.maxAttempts} - 0.25rem - ${rowHeight})))`;
   const tileStyle: CSSProperties = { width: size, fontSize: `calc(${size} * 0.5)` };
   const groups: [number, number][] = [
     [0, 2],
@@ -116,7 +117,7 @@ export function DateBoard({ t, lang, showHints, ...s }: BoardState & { t: Dictio
   const hintLabel = (h: DateHints[DateField]) => (h === 'up' ? t.game.hintUp : h === 'down' ? t.game.hintDown : t.game.hintEqual);
 
   return (
-    <div className="flex flex-col items-center gap-1.5">
+    <div className="flex flex-col items-center gap-1">
       <div className="flex items-end gap-3 text-[0.7rem] font-bold uppercase tracking-wider text-[var(--muted)]" aria-hidden>
         {groups.map(([from, to], g) => (
           <span key={g} className="text-center" style={{ width: `calc(${size} * ${to - from} + 0.3rem * ${to - from - 1})` }}>
@@ -133,7 +134,13 @@ export function DateBoard({ t, lang, showHints, ...s }: BoardState & { t: Dictio
           ? order.reduce((last, idx, pos) => (canonical[idx] ? pos : last), -1)
           : -1;
         return (
-          <div key={row} role="group" aria-label={t.game.row(row + 1)} className={isCurrent && s.shake ? 'row-shake' : ''}>
+          <div
+            key={row}
+            role="group"
+            aria-label={t.game.row(row + 1)}
+            data-current-row={isCurrent || undefined}
+            className={isCurrent && s.shake ? 'row-shake' : ''}
+          >
             <div className="flex items-center gap-3">
               {groups.map(([from, to], g) => (
                 <div key={g} className="flex flex-col items-center">
@@ -158,7 +165,7 @@ export function DateBoard({ t, lang, showHints, ...s }: BoardState & { t: Dictio
                     })}
                   </div>
                   {showHints && (
-                    <div className="h-5 text-base font-black leading-5 text-[var(--accent)]">
+                    <div className="h-4 text-sm font-black leading-4 text-[var(--accent)]">
                       {record?.hints && row !== s.revealRow && (
                         <span aria-label={`${fieldLabel(fields[g])}: ${hintLabel(record.hints[fields[g]])}`}>
                           {ARROW[record.hints[fields[g]]]}

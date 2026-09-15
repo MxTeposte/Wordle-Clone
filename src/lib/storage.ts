@@ -1,6 +1,6 @@
 'use client';
 
-import type { GameId, GuessRecord, Lang } from './types';
+import type { GameId, GuessRecord, Lang, Mode } from './types';
 
 export type Theme = 'system' | 'light' | 'dark';
 
@@ -34,8 +34,11 @@ export const keys = {
     game === 'date' ? `wordkstate:date:daily:${date}` : `wordkstate:${game}:${lang}:daily:${date}`,
   practice: (game: GameId, lang: Lang) =>
     game === 'date' ? 'wordkstate:date:practice' : `wordkstate:${game}:${lang}:practice`,
-  stats: (game: GameId, lang: Lang, dateHints: boolean) =>
-    game === 'date' ? `wordkstate:stats:date:${dateHints ? 'hints' : 'plain'}` : `wordkstate:stats:${game}:${lang}`,
+  /** Estadísticas separadas por modo; las del reto diario conservan las claves originales. */
+  stats: (game: GameId, lang: Lang, dateHints: boolean, mode: Mode = 'daily') => {
+    const base = game === 'date' ? `date:${dateHints ? 'hints' : 'plain'}` : `${game}:${lang}`;
+    return mode === 'practice' ? `wordkstate:stats:practice:${base}` : `wordkstate:stats:${base}`;
+  },
 };
 
 export function readJSON<T>(key: string): T | null {

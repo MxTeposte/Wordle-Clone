@@ -72,7 +72,7 @@ export function GameMenu({ lang, startDate }: { lang: Lang; startDate: string })
                   ))}
                 </div>
                 <h2 className="text-lg font-extrabold">{t.games[g.id].name}</h2>
-                <p className="mt-1 flex-1 text-sm text-[var(--muted)]">{t.games[g.id].description}</p>
+                <p className="mt-1 flex-1 text-sm text-[var(--muted)]">{t.games[g.id].description(g.maxAttempts)}</p>
                 <p className="mt-3 h-4 text-xs font-bold uppercase tracking-wide">
                   {status && <span className={STATUS_COLOR[status]}>{t.menu.status[status]}</span>}
                 </p>

@@ -119,7 +119,7 @@ describe('games', () => {
   it('definiciones del plan', () => {
     expect(GAMES.w5).toMatchObject({ length: 5, maxAttempts: 6 });
     expect(GAMES.w6).toMatchObject({ length: 6, maxAttempts: 7 });
-    expect(GAMES.date).toMatchObject({ length: 8, maxAttempts: 6 });
+    expect(GAMES.date).toMatchObject({ length: 8, maxAttempts: 10 });
   });
   it('slugs traducidos', () => {
     expect(gameFromSlug('es', 'fecha')?.id).toBe('date');

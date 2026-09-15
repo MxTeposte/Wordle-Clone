@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { notFound } from 'next/navigation';
+import { InlineScript } from '@/components/InlineScript';
 import { PrefsProvider } from '@/components/PrefsProvider';
 import { getDictionary } from '@/i18n';
 import { isLang, LANGS } from '@/lib/types';
@@ -42,7 +43,7 @@ export default async function RootLayout({ children, params }: LayoutProps<'/[la
   return (
     <html lang={lang} data-theme="light" suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
+        <InlineScript html={THEME_SCRIPT} />
       </head>
       <body className="font-sans antialiased">
         <PrefsProvider>{children}</PrefsProvider>

@@ -23,9 +23,13 @@ const en: Dictionary = {
     footer: 'Built with open word lists.',
   },
   games: {
-    w5: { name: '5-letter word', short: '5', description: 'Guess the 5-letter word in 6 tries.' },
-    w6: { name: '6-letter word', short: '6', description: 'Guess the 6-letter word in 7 tries.' },
-    date: { name: 'Date', short: 'Date', description: 'Guess the hidden date between 1900 and today in 6 tries.' },
+    w5: { name: '5-letter word', short: '5', description: (n: number) => `Guess the 5-letter word in ${n} tries.` },
+    w6: { name: '6-letter word', short: '6', description: (n: number) => `Guess the 6-letter word in ${n} tries.` },
+    date: {
+      name: 'Date',
+      short: 'Date',
+      description: (n: number) => `Guess the hidden date between 1900 and today in ${n} tries.`,
+    },
   },
   game: {
     daily: (n: number) => `Challenge #${n}`,
@@ -88,6 +92,8 @@ const en: Dictionary = {
     currentStreak: 'Current streak',
     maxStreak: 'Best streak',
     distribution: 'Guess distribution',
+    daily: 'Daily challenge',
+    practice: 'Practice',
     withHints: 'With arrows',
     withoutHints: 'Without arrows',
     none: 'No games yet.',
